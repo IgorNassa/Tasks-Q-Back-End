@@ -16,24 +16,23 @@ public record UserRequest(
         String email,
 
         @NotEmpty
-        @Max(12)
-        @Min(6)
+        @Size(min = 6, max = 12)
         String password,
 
         @URL
         String avatarUrl,
 
-        @NotEmpty
+        @NotNull
         CargoEnum cargo,
 
-        @NotEmpty
+        @NotNull
         UserStatusEnum status,
 
         @NotNull
         @Positive
         Long xp,
 
-        @NotEmpty
+        @NotNull
         UserEloEnum elo
 ) {
 

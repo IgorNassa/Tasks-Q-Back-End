@@ -56,4 +56,15 @@ public class UserService {
 
         return UserResponse.from(userAtualizado);
     }
+
+    public UserResponse removeXp(Long id, Long xp) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        user.setXp(user.getXp() - xp);
+
+        User userAtualizado = userRepository.save(user);
+
+        return UserResponse.from(userAtualizado);
+    }
 }

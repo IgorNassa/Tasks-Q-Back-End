@@ -63,23 +63,23 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/{id}/addXp")
-    public ResponseEntity<UserResponse> addXp(@PathVariable Long id, @RequestParam Long xp){
+        @PatchMapping("/{id}/addXp")
+        public ResponseEntity<UserResponse> addXp(@PathVariable Long id, @RequestParam Long xp){
+            try{
+                UserResponse user = this.userService.addXp(id, xp);
+                return ResponseEntity.ok(user);
+            } catch (RuntimeException e) {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+    @PatchMapping("/{id}/removeXp")
+    public ResponseEntity<UserResponse> removeXp(@PathVariable Long id, @RequestParam Long xp){
         try{
-            UserResponse user = this.userService.addXp(id, xp);
+            UserResponse user = this.userService.removeXp(id, xp);
             return ResponseEntity.ok(user);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-//    @PatchMapping("/{id}/removeXp")
-//    public ResponseEntity<UserResponse> removeXp(@PathVariable Long id, @RequestParam Long xp){
-//        try{
-//            User user = this.userService.removeXp(id, xp);
-//            return ResponseEntity.ok(UserResponse.from(user));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
 }

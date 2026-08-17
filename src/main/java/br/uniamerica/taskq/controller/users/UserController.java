@@ -40,10 +40,43 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest){
+        try {
+            UserResponse user = userService.update(id, userRequest);
+            return ResponseEntity.ok(user);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<UserResponse> deleteUser(@PathVariable Long id){
+        try {
+            this.userService.delete(id);
+            return ResponseEntity.noContent().build();
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 //    @PatchMapping("/{id}/addXp")
 //    public ResponseEntity<UserResponse> addXp(@PathVariable Long id, @RequestParam Long xp){
 //        try{
 //            User user = this.userService.addXp(id, xp);
+//            return ResponseEntity.ok(UserResponse.from(user));
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+//
+//    @PatchMapping("/{id}/removeXp")
+//    public ResponseEntity<UserResponse> removeXp(@PathVariable Long id, @RequestParam Long xp){
+//        try{
+//            User user = this.userService.removeXp(id, xp);
 //            return ResponseEntity.ok(UserResponse.from(user));
 //        } catch (Exception e) {
 //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);

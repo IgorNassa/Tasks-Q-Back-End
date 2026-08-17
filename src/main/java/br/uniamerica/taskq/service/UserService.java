@@ -39,7 +39,10 @@ public class UserService {
         return UserResponse.from(userAtualizado);
     }
 
-    public void delete (UserRequest userRequest){
-        userRepository.deleteById(userRequest.toUser().getId());
+    public void delete(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não existe"));
+
+        userRepository.delete(user);
     }
 }

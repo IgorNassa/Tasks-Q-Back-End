@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponse> novo(@RequestBody @Valid UserRequest userRequest){
+    public ResponseEntity<UserResponse> newUser(@RequestBody @Valid UserRequest userRequest){
         try {
             User user = this.userService.create(userRequest);
             return new ResponseEntity<UserResponse>(UserResponse.from(user), HttpStatus.CREATED);
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/read")
-    public ResponseEntity<List<UserResponse>> ler(){
+    public ResponseEntity<List<UserResponse>> listUsers(){
         try{
             List<UserResponse> users = this.userService.findAll();
             return new ResponseEntity<>(users, HttpStatus.OK);
